@@ -3,7 +3,11 @@ console.log("yep you connected js ")
 // CRUD 
 // adding / checking / updating / deleting things in an array. (CRUD)
 //                0        1         2
-const myList = ["apple", "banana", "coffee"]
+const myList = [
+    {done: false, text:"apple"},
+    {done: false, text:"banana"},
+    {done: false, text:"coffee"}
+]
 const inputEl = document.querySelector("#user-text-input-element")
 const targetEl = document.querySelector("#target")
 
@@ -13,6 +17,7 @@ const targetEl = document.querySelector("#target")
 // DOM NODE 
 // addEventListener(event type, function) <-- signature
 inputEl.addEventListener("keyup", function(e){
+    console.log(e)
     if(e.key === "Enter") {
         console.log(inputEl.value)
         myList.unshift(inputEl.value)
@@ -43,7 +48,7 @@ function render() {
     // put it into the dom 
     // "PRINT"
     const myListAsHTML = myList
-        .map(item => `<div>${item}</div>`)
+        .map((item, i) => `<div onclick="remove(${i})">${item.text}  </div>`)
         // .reverse()
         // .sort()
         .join("")
@@ -59,6 +64,11 @@ function render() {
 
 // DELETE
 // myList.splice(i,1)
+
+function remove(bazinga) {
+    myList.splice(bazinga,1)
+    render()
+}
 
 
 // "initial render" // "initial draw"
