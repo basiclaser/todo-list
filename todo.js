@@ -5,15 +5,18 @@ console.log("yep you connected js ")
 //                0        1         2
 const myList = ["apple", "banana", "coffee"]
 const inputEl = document.querySelector("#user-text-input-element")
-console.log(inputEl)
+const targetEl = document.querySelector("#target")
+
 
 
 // LISTEN / PAY ATTENTION / OBSERVER / WAIT 
 // DOM NODE 
 // addEventListener(event type, function) <-- signature
 inputEl.addEventListener("keyup", function(e){
-    if(e.key === "x") {
+    if(e.key === "Enter") {
         console.log(inputEl.value)
+        myList.unshift(inputEl.value)
+        render()
     }
 })
 
@@ -34,6 +37,21 @@ inputEl.addEventListener("keyup", function(e){
 // READ
 // create HTML, adding to the DOM (the page)
 
+function render() {
+    // take the data ( myList )
+    // turn into "html" strings
+    // put it into the dom 
+    // "PRINT"
+    const myListAsHTML = myList
+        .map(item => `<div>${item}</div>`)
+        // .reverse()
+        // .sort()
+        .join("")
+
+    console.log(myListAsHTML)
+    targetEl.innerHTML = myListAsHTML
+}
+
 
 // UPDATE
 // myList[userClickIndex] = inputField.value
@@ -41,3 +59,7 @@ inputEl.addEventListener("keyup", function(e){
 
 // DELETE
 // myList.splice(i,1)
+
+
+// "initial render" // "initial draw"
+render()
