@@ -1,4 +1,10 @@
 console.log("yep you connected js ")
+
+// user does something
+// we listen in javascript to that action 
+// we respond to the action 
+// we give the user feedack 
+
 // VARIABLE - is something that varies (changes)
 // CRUD 
 // adding / checking / updating / deleting things in an array. (CRUD)
@@ -15,7 +21,7 @@ const targetEl = document.querySelector("#target")
 
 // LISTEN / PAY ATTENTION / OBSERVER / WAIT 
 // DOM NODE 
-// addEventListener(event type, function) <-- signature
+// addEventListener(event type, callback function to handle the event) <-- signature
 inputEl.addEventListener("keyup", function(e){
     console.log(e)
     if(e.key === "Enter") {
@@ -28,11 +34,6 @@ inputEl.addEventListener("keyup", function(e){
 // inputEl.addEventListener("keydown", (e)=>console.log(e.type))
 // inputEl.addEventListener("keypress", (e)=>console.log(e.type))
 // inputEl.addEventListener("keyup", (e)=>console.log(e.type))
-
-// user does something
-// we listen in javascript to that action 
-// we respond to the action 
-// we give the user feedack 
 
 // CREATE
 // unshift
@@ -48,7 +49,12 @@ function render() {
     // put it into the dom 
     // "PRINT"
     const myListAsHTML = myList
-        .map((item, i) => `<div onclick="remove(${i})">${item.text}  </div>`)
+        .map((item, i) => `
+        <div>
+            ${item.text}
+            <!--put the toggle done/not done button here-->
+            <button onclick="remove(${i})">🗑</button>
+        </div>`)
         // .reverse()
         // .sort()
         .join("")
