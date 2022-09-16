@@ -8,26 +8,36 @@ console.log("yep you connected js ")
 // VARIABLE - is something that varies (changes)
 // CRUD 
 // adding / checking / updating / deleting things in an array. (CRUD)
-//                0        1         2
+
 const myList = [
-    {pending: true, text:"apple", date: new Date()},
-    {pending: true, text:"banana", date: new Date()},
-    {pending: true, text:"coffee", date: new Date()}
+    {inProgress: true, text:"apple", date: new Date()},
+    {inProgress: true, text:"banana", date: new Date()},
+    {inProgress: true, text:"coffee", date: new Date()}
 ]
 let editingIndex = 2
+let showOnlyinProgress = true;
 
+//          // DOM // webpage
 const inputEl = document.querySelector("#user-text-input-element")
 const targetEl = document.querySelector("#target")
-const pendingToggleEl = document.querySelector("#pending-toggle")
+const inProgressToggleEl = document.querySelector("#inProgress-toggle")
+
+
+// variables as "shortcuts"
+// a way of doing something faster
+// compute once, reference that "computed value" thousand times
+// computing (calculating the value) thousand times
+// computation?
+
 
 // CREATE
-inputEl.addEventListener("keyup", function(e){
-    console.log(e)
-    if(e.key === "Enter") {
+inputEl.addEventListener("keyup", function(event){
+    console.log(event)
+    if(event.key === "Enter") {
         console.log(inputEl.value)
 
         const newItem = {
-            pending:true,
+            inProgress:true,
             text:inputEl.value,
             date: new Date()
         }
@@ -36,37 +46,57 @@ inputEl.addEventListener("keyup", function(e){
         render()
     }
 })
+
+
+
 // READ 
+
+
+const inProgressFilter = (item) => showOnlyinProgress ? item.inProgress : true
+
+const thisWeekFilter = (item) => {
+    const today = new Date()
+    const thisWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7)
+    return item.date < thisWeek
+}
+
+const chronoSort = (a,b) => a.date - b.date
+
+const listItemTemplate = (item, i) => `
+        <div class="list-item item-${i} ${editingIndex === i ? "editing-active" : ""}">
+            ${i})
+            ${item.date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+            })}
+            ${editingIndex === i ? 
+                `<input onkeyup="handleInlineEditorKeyup(event, ${i})" type="text" value="${item.text}"></input>`
+                :
+                `<span ondblclick="setMeAsActivelyBeingEdited(${i})" >${item.text}</span>`
+            }
+            ${item.inProgress}
+            <!--put the toggle inProgress/not inProgress button here-->
+            <button onclick="toggleDone(${i})">✅</button>
+            <button onclick="remove(${i})">🗑</button>
+        </div>`
+
 function render() {
-    const myListAsHTML = myList
-        // "if showOnly pending, allow only pending:true items through the filter"
-        .filter(function(item){
-            return showOnlyPending ? item.pending : true
-        })
-        .map(function(item, i) {
-            return `
-                <div>
-                    ${item.date.toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit',
-                      })}
-                    ${editingIndex === i ? `<input onkeyup="handleInlineEditorKeyup(event, ${i})" type="text" value="${item.text}"></input>` : `<span ondblclick="setMeAsActivelyBeingEdited(${i})" >${item.text}</span>`}
-                    ${item.pending}
-                    <!--put the toggle pending/not pending button here-->
-                    <button onclick="toggleDone(${i})">✅</button>
-                    <button onclick="remove(${i})">🗑</button>
-                </div>`
-        })
+    targetEl.innerHTML = myList
+        .filter(inProgressFilter) // "if showOnly inProgress, allow only inProgress:true items through the filter"
+        .filter(thisWeekFilter)
+        .sort(chronoSort)
+        .map(listItemTemplate)
         .join("")
-    targetEl.innerHTML = myListAsHTML
 }
+
+
+// dynamically build UI 
+// SPA single-page application 
+
+
 // UPDATE
-function toggleDone(i) {
-    editingIndex = i
-    myList[i].pending = !myList[i].pending
-    render()
-}
+
 
 function setMeAsActivelyBeingEdited(i) {
     editingIndex = i
@@ -86,7 +116,7 @@ function handleInlineEditorKeyup(event, i) {
 }
 
 function toggleDone(i) {
-    myList[i].pending = !myList[i].pending
+    myList[i].inProgress = !myList[i].inProgress
     render()
 }
 
@@ -98,12 +128,11 @@ function remove(i) {
 
 // FILTER OUT DONE
 // A NEW PIECE OF STATE IN OUR APP 
-let showOnlyPending = false;
-pendingToggleEl.addEventListener("click", function(event){
-    showOnlyPending = !showOnlyPending
-    pendingToggleEl.innerText = showOnlyPending ? "remove filter" : "show only pending"
+inProgressToggleEl.addEventListener("click", function(event){
+    showOnlyinProgress = !showOnlyinProgress
+    inProgressToggleEl.innerText = showOnlyinProgress ? "remove filter" : "show only inProgress"
     render()
-    console.log(showOnlyPending)
+    console.log(showOnlyinProgress)
 })
 
 // "initial render" // "initial draw"
