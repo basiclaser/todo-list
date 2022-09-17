@@ -37,7 +37,7 @@ document.querySelector("#button").addEventListener("click", function() {
 // you can think of it as a HOF, and the function that is passed as an argument is a callback
 
 // can you think of other examples of where we use callbacks in javascript?
-// some other examples of callbacks in javascript are:
+// some other examples of HOFs that take callbacks in javascript are:
 // setTimeout
 // setInterval
 // fetch
