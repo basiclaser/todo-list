@@ -31,8 +31,12 @@ document.querySelector("#button").addEventListener("click", function() {
     console.log("I am a callback")
 })
 
-// so when you see a function that takes another function as an argument, you can think of it as a "callback function"
-// can you think of other examples of callbacks in javascript?
+// higher order functions
+// these are functions that take other functions as arguments, or return functions as their results
+// so when you see a function that takes another function as an argument,
+// you can think of it as a HOF, and the function that is passed as an argument is a callback
+
+// can you think of other examples of where we use callbacks in javascript?
 // some other examples of callbacks in javascript are:
 // setTimeout
 // setInterval
