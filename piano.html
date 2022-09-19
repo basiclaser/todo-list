@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <h1>oqiwjdoqwidj</h1>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>piano</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #a0522d;
+        }
+
+        #piano {
+            display: flex;
+            width: 100vw;
+        }
+
+        .key {
+            height: 200px;
+            width: 100%;
+            outline: 1px solid gray;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .black {
+            background: black;
+            color: white;
+        }
+
+        .white {
+            background: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="piano"></div>
+</body>
+
+<script>
+    let pianoKeys;
+    const notes = [
+        "040.wav",
+        "041.wav",
+        "042.wav",
+        "043.wav",
+        "044.wav",
+        "045.wav",
+        "046.wav",
+        "047.wav",
+        "048.wav",
+        "049.wav"
+    ]
+    const playSound = (key) => {
+        console.log(key.innerText)
+        var audio = new Audio(`sounds/${key.innerText}`);
+        audio.loop = false;
+        audio.play();
+
+        // think of a way to play a sound 
+        // generate 
+        // play file
+    }
+
+    const drawPianoOnScreen = (notes, cb) => {
+        const keysToHTML = notes.map((note, i) => {
+            return `<div id="note-${i}" class=" key ${note.includes("b") ? "black" : "white"
+                }">${note}</div>`;
+        });
+        document.querySelector("#piano").innerHTML = keysToHTML.join("")
+        cb()
+    };
+
+    const listen = () => {
+        pianoKeys = document.querySelectorAll(".key")
+        pianoKeys.forEach(key => {
+            ["touch", "click"].forEach(eventType => {
+                key.addEventListener(eventType, function () {
+                    playSound(key)
+                })
+            })
+        })
+    }
+
+    drawPianoOnScreen(notes, listen)
+
+
+</script>
+
+</html>

@@ -11,16 +11,25 @@
     #user-text-input-element {
         color: red
     }
+
+    .list-item {
+        /* background: lightblue; */
+    }
+
+    .editing-active {
+        background: greenyellow;
+    }
 </style>
 
 <body>
     <h1 onclick="alert('hello')">yes you are looking at the right file</h1>
     <input id="user-text-input-element" type="text">
-    <button id="pending-toggle">show only pending tasks</button>
+    <button id="inProgress-toggle">show only inProgress tasks</button>
     <div id="target"></div>
 </body>
 
-<script src="todo.js"></script>
+<script src="todo-oop.js"></script>
+<!-- <script src="todo.js"></script> -->
 
 
 </html>
