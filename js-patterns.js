@@ -4,7 +4,7 @@
 // in javascript you can create objects without classes though and still use object oriented programming
 // that is what we will look at now 
 
-// OOP - class pattern vs prototype pattern vs factory pattern vs constructor pattern vs singleton pattern vs module pattern vs factory function vs constructor function vs factory class vs constructor class vs singleton class vs module class vs factory module vs constructor module vs singleton module vs module module
+// OOP - class pattern vs prototype pattern vs factory pattern vs constructor pattern vs singleton pattern
 
 
 // TODO list example 
